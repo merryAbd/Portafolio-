@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mariana Montana | Consultora de Negocios</title>
+ </head>
+<style>
+  #image img{
+      width: 150px;
+      height: 150px;
+      border-radius:50%;
+      overflow: hidden;
+    }
+    
+    #feedback {
+    max-width: 700px;
+    margin: 60px auto;
+    background: var(--color-white);
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+  }
+
+  #feedback h2 {
+    text-align: center;
+    color: var(--color-primary);
+    margin-bottom: 10px;
+  }
+
+  #feedback p {
+    text-align: center;
+    font-size: 1.1rem;
+    color: #555;
+  }
+
+  #feedbackForm {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-top: 25px;
+  }
+
+  #feedbackForm input, 
+  #feedbackForm textarea {
+    padding: 10px;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    width: 100%;
+    transition: border-color 0.3s ease;
+  }
+
+  #feedbackForm input:focus, 
+  #feedbackForm textarea:focus {
+    border-color: var(--color-secondary);
+    outline: none;
+  }
+
+  .rating {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: center;
+  }
+
+  .rating input {
+    display: none;
+  }
+
+  .rating label {
+    font-size: 2rem;
+    color: #ccc;
+    cursor: pointer;
+    transition: color 0.2s ease;
+  }
+
+  .rating input:checked ~ label,
+  .rating label:hover,
+  .rating label:hover ~ label {
+    color: #FFD700;
+  }
+
+  #successMessage {
+    margin-top: 25px;
+    text-align: center;
+    background: #e0ffe4;
+    color: #007c33;
+    padding: 15px;
+    border-radius: 8px;
+    font-weight: 500;
+  }
+
+  .hidden {
+    display: none;
+  }
+
+    :root {
+      --color-primary: #0078d7;
+      --color-secondary: #00bfa6;
+      --color-bg: #f9f9f9;
+      --color-text: #333;
+      --color-white: #fff;
+      --shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+
+    body {
+      font-family: "Poppins", sans-serif;
+      background: var(--color-bg);
+      color: var(--color-text);
+      margin: 0;
+      padding: 0;
+    }
+
+    /* ===== HEADER ===== */
+    header {
+      background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+      color: var(--color-white);
+      padding: 70px 20px;
+      text-align: center;
+      box-shadow: var(--shadow);
+    }
+
+    header h1 {
+      font-size: 2.8rem;
+      margin-bottom: 10px;
+    }
+
+    .typing {
+      font-size: 1.2rem;
+      font-weight: 400;
+      border-right: 3px solid var(--color-white);
+      display: inline-block;
+      white-space: nowrap;
+      overflow: hidden;
+      width: 0;
+      animation: typing 4s steps(40, end) forwards, blink 0.7s step-end infinite;
+    }
+
+    @keyframes typing {
+      from { width: 0; }
+      to { width: 100%; }
+    }
+
+    @keyframes blink {
+      50% { border-color: transparent; }
+    }
+
+    /* ===== SECCIONES ===== */
+    section {
+      max-width: 1100px;
+      margin: 60px auto;
+      background: var(--color-white);
+      padding: 40px;
+      border-radius: 12px;
+      box-shadow: var(--shadow);
+    }
+
+    h2 {
+      color: var(--color-primary);
+      border-left: 4px solid var(--color-secondary);
+      padding-left: 10px;
+      margin-bottom: 20px;
+    }
+
+    p, ul {
+      font-size: 1.05rem;
+      line-height: 1.7;
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    ul li::before {
+      content: "• ";
+      color: var(--color-secondary);
+      font-weight: bold;
+    }
+
+    .highlight {
+      color: var(--color-secondary);
+      font-weight: 600;
+    }
+
+    /* ===== PROYECTOS ===== */
+    .projects {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 25px;
+      margin-top: 30px;
+    }
+
+    .project-card {
+      background: var(--color-white);
+      border-radius: 12px;
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      cursor: pointer;
+    }
+
+    .project-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+    }
+
+    .project-card img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+    }
+
+    .project-card .content {
+      padding: 20px;
+    }
+
+    .project-card h3 {
+      color: var(--color-primary);
+      margin-bottom: 10px;
+    }
+
+    /* ===== BOTONES ===== */
+    .btn {
+      display: inline-block;
+      background: var(--color-primary);
+      color: var(--color-white);
+      padding: 12px 24px;
+      text-decoration: none;
+      border-radius: 6px;
+      transition: 0.3s;
+      margin-top: 15px;
+    }
+
+    .btn:hover {
+      background: var(--color-secondary);
+    }
+
+    .btn-download {
+      background: var(--color-secondary);
+      font-weight: 600;
+    }
+
+    .btn-download:hover {
+      background: var(--color-primary);
+    }
+
+    /* ===== SOCIAL ICONS ===== */
+    .social-icons {
+  display: flex;
+  justify-content: left;
+  gap: 20px;
+  margin: 15px 0 25px;
+}
+
+.social-icon {
+  color: var(--color-primary);
+  transition: transform 0.3s, color 0.3s;
+}
+
+.social-icon:hover {
+  color: var(--color-secondary);
+  transform: scale(1.2);
+}
+
+.social-icon svg {
+  vertical-align: middle;
+}
+
+    /* ===== FOOTER ===== */
+    footer {
+      text-align: center;
+      padding: 25px;
+      background: #222;
+      color: #ccc;
+      margin-top: 60px;
+    }
+
+    @media (max-width: 768px) {
+      section {
+        margin: 20px;
+        padding: 25px;
+      }
+      header h1 {
+        font-size: 2rem;
+      }
+    }
+</style>
+<body>
+  <header>
+      <div id="image">
+      <img src="https://media.licdn.com/dms/image/v2/D4D03AQE9763JVasWqA/profile-displayphoto-shrink_800_800/B4DZU1YVDpG8Ac-/0/1740357325803?e=1764201600&v=beta&t=GJw0O9uoK0TMV92NYwbB2mG0TCKHOpJuNdaoXas7Wpg" alt="image">
+    </div>
+    <h1>Mariana Montana</h1>
+    <p class="typing">Consultora de Negocios | Ingeniera en Computación | Tecnología y Transformación</p>
+  </header>
+   <script>
+    // Efecto de saludo dinámico
+    const header = document.querySelector('header h1');
+    const mensajes = ["Mariana Montana", "Consultora de Negocios", "Ingeniera en Computación"];
+    let i = 0;
+    setInterval(() => {
+      i = (i + 1) % mensajes.length;
+      header.textContent = mensajes[i];
+    }, 3000);
+    </script>
+    <section>
+    <h2>¿Quién Soy?</h2>
+    <p>Soy <span class="highlight">Mariana Montana</span>, consultora de negocios e ingeniera en computación. Ayudo a empresas de alimentación colectiva a optimizar sus procesos, reducir costos y mejorar resultados mediante soluciones tecnológicas efectivas y personalizadas.</p>
+    <a href="CV_Mariana_Montana.pdf" class="btn btn-download" download>📄 Descargar CV</a>
+  </section>
+
+  <section>
+    <h2>Mis Valores</h2>
+    <ul>
+      <li>🤝Empatía y conexión humana </li>
+      <li>💡Innovación constante </li>
+      <li>🎯Compromiso con la excelencia </li>
+      <li>🌱Propósito y transformación </li>
+    </ul>
+  </section>
+  <section>
+    <h2>Habilidades</h2>
+    <ul>
+      <li>💬 Comunicación asertiva y escucha activa</li>
+      <li>📈 Consultoría comercial y ventas B2B</li>
+      <li>🧠 Análisis de datos y resolución de conflictos</li>
+      <li>💻 Desarrollo web (HTML, CSS, JavaScript)</li>
+      <li>⚙️ Soporte técnico, redes e instalación</li>
+    </ul>
+  </section>
+  <section>
+    <h2>¿Cómo Quiero Ser Percibida?</h2>
+    <p>Como una profesional <span class="highlight">confiable, cercana y estratégica</span>, capaz de entender los desafíos de cada negocio y ofrecer soluciones reales que impulsen resultados sostenibles.</p>
+  </section>
+
+  <section>
+    <h2>Lo Que Me Destaca</h2>
+    <p>Mi capacidad de conectar lo técnico con lo humano. No solo vendo tecnología: traduzco su valor en resultados tangibles que impactan positivamente a las personas y empresas.</p>
+  </section>
+
+  <section>
+    <h2>Proyectos Destacados</h2>
+    <div class="projects">
+      <div class="project-card">
+        <img src="https://media.licdn.com/dms/image/sync/v2/C4D27AQFIYGjVrMi5pw/articleshare-shrink_800/articleshare-shrink_800/0/1711489032165?e=1763344800&v=beta&t=YyLR3CkVJpw7TOBUskEyMPYLJJv4GE-fg7TX0BsFZ2w" alt="TecFood Project">
+        <div class="content">
+          <h3>TecFood – Gestión de Comedores</h3>
+          <p>Implementación de solución tecnológica para control de costos, planificación de menús y reducción de desperdicios en empresas de alimentación colectiva.</p>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <img src="https://media.licdn.com/dms/image/sync/v2/D4D27AQEBrFqm2rBUSg/articleshare-shrink_800/articleshare-shrink_800/0/1711576183841?e=1763344800&v=beta&t=pK0N4BpuwyYVsKMPWYVhaQAUs-o7_gv1aNbOkXIUrT8" alt="Automatización de Procesos">
+        <div class="content">
+          <h3>Automatización de Procesos</h3>
+          <p>Desarrollo de flujos automatizados para reducir tiempos operativos y mejorar la trazabilidad en cocinas industriales.</p>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <img src="https://media.licdn.com/dms/image/v2/D4D22AQH13q3yW_Sfgg/feedshare-shrink_800/B4DZTc2JIiG8As-/0/1738871970486?e=1762992000&v=beta&t=nOoeZtQ7SA-ci_frW_-HPdWU3locXYVWlhYYPI6ous8" alt="Consultoría Empresarial">
+        <div class="content">
+          <h3>Consultoría Empresarial</h3>
+          <p>Capacitación y acompañamiento a equipos para mejorar la eficiencia, reducir errores y aumentar la rentabilidad de los servicios de alimentación.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Contacto</h2>
+    <p>📧 <a href="mailto:marimontana@gmail.com">marimontana@gmail.com</a></p>
+    <div class="social-icons">
+        <a href="https://www.linkedin.com/in/mari-montana" target="_blank" title="LinkedIn" class="social-icon">
+        <!-- Ícono LinkedIn -->
+            <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M4.98 3.5C4.98 4.6 4.06 5.5 2.98 5.5C1.9 5.5 1 4.6 1 3.5C1 2.4 1.9 1.5 2.98 1.5C4.06 1.5 4.98 2.4 4.98 3.5ZM1.5 8H4.5V21H1.5V8ZM8.5 8H11.3V9.5H11.34C11.73 8.75 12.67 7.95 14.09 7.95C17.03 7.95 17.5 9.85 17.5 12.45V21H14.5V13.25C14.5 11.8 14.47 10.05 12.74 10.05C10.98 10.05 10.7 11.55 10.7 13.15V21H7.7V8H8.5Z"/>
+            </svg>LinkedIn
+        </a>
+        <!-- Icone de Linktree-->
+        <a href="https://linktr.ee/Maribmd">  |  🔗 Linktree</a>
+        <!-- Icone de Instagram-->
+        |<a href="https://www.instagram.com/mariconsultorainternacional/"target="_blank"title="Instagram"class="social-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M7.5 2h9A5.5 5.5 0 0 1 22 7.5v9A5.5 5.5 0 0 1 16.5 22h-9A5.5 5.5 0 0 1 2 16.5v-9A5.5 5.5 0 0 1 7.5 2zm0 2A3.5 3.5 0 0 0 4 7.5v9A3.5 3.5 0 0 0 7.5 20h9a3.5 3.5 0 0 0 3.5-3.5v-9A3.5 3.5 0 0 0 16.5 4h-9zm9.25 1.5a.75.75 0 0 1 .75.75v1.5a.75.75 0 0 1-1.5 0V6.25a.75.75 0 0 1 .75-.75zM12 7a5 5 0 1 1 0 10a5 5 0 0 1 0-10zm0 2a3 3 0 1 0 0 6a3 3 0 0 0 0-6z"/>
+           </svg> Instagram
+        </a>
+    </div>
+<p> </p>
+    <a href="https://wa.me/5531984523598?text=Hola%20Mariana,%20vi%20tu%20portafolio%20y%20me%20gustaría%20saber%20más%20sobre%20tus%20servicios." 
+   target="_blank" 
+   class="btn">
+   💬 Contáctame por WhatsApp
+</a>
+  </section>
+
+  <script>
+    // Efecto de escritura (typing) en loop
+    const typingText = document.querySelector('.typing');
+    const phrases = [
+      "Consultora de Negocios | Ingeniera en Computación | Tecnología y Transformación",
+      "Ayudo a empresas a optimizar su gestión con soluciones tecnológicas",
+      "Innovación y resultados para el sector de alimentación colectiva"
+    ];
+
+    let phraseIndex = 0;
+    let charIndex = 0;
+
+    function typeEffect() {
+      if (charIndex < phrases[phraseIndex].length) {
+        typingText.textContent += phrases[phraseIndex].charAt(charIndex);
+        charIndex++;
+        setTimeout(typeEffect, 70);
+      } else {
+        setTimeout(eraseEffect, 1800);
+      }
+    }
+
+    function eraseEffect() {
+      if (charIndex > 0) {
+        typingText.textContent = phrases[phraseIndex].substring(0, charIndex - 1);
+        charIndex--;
+        setTimeout(eraseEffect, 50);
+      } else {
+        phraseIndex = (phraseIndex + 1) % phrases.length;
+        setTimeout(typeEffect, 500);
+      }
+    }
+    document.addEventListener("DOMContentLoaded", typeEffect);
+  </script>
+  <section id="feedback">
+  <h2>Tu Opinión es Importante 💬</h2>
+  <p>Comparte tu experiencia o impresión sobre mi trabajo o los servicios que ofrezco.</p>
+
+  <form id="feedbackForm">
+    <label for="name">Nombre:</label>
+    <input type="text" id="name" name="name" placeholder="Tu nombre" required>
+
+    <label for="rating">Calificación (1 a 5):</label>
+    <div class="rating">
+      <input type="radio" id="star5" name="rating" value="5"><label for="star5">★</label>
+      <input type="radio" id="star4" name="rating" value="4"><label for="star4">★</label>
+      <input type="radio" id="star3" name="rating" value="3"><label for="star3">★</label>
+      <input type="radio" id="star2" name="rating" value="2"><label for="star2">★</label>
+      <input type="radio" id="star1" name="rating" value="1"><label for="star1">★</label>
+    </div>
+    <label for="message">Comentario:</label>
+    <textarea id="message" name="message" rows="4" placeholder="Escribe aquí tu opinión..." required></textarea>
+    <button type="submit" class="btn">Enviar Opinión</button>
+  </form>
+  <div id="successMessage" class="hidden">✨ ¡Gracias por tu opinión! Tu feedback es muy valioso. ✨</div>
+</section>
+
+<script>
+  const form = document.getElementById('feedbackForm');
+  const successMessage = document.getElementById('successMessage');
+
+  form.addEventListener('submit', async function (e) {
+    e.preventDefault();
+
+    // Obtiene los valores del formulario
+    const formData = {
+      name: form.name.value.trim(),
+      rating: document.querySelector('input[name="rating"]:checked') ? document.querySelector('input[name="rating"]:checked').value : "",
+      message: form.message.value.trim()
+    };
+
+    // Tu URL del Google Apps Script
+    const scriptURL = "https://script.google.com/macros/s/AKfycbz_kgCwrX2hp31OQ-nbfgSfQkB-JXyNox63ur1XEng1koAwysOD76SlWjubRSi58ae4cQ/exec";
+    
+
+    try {
+      const response = await fetch(scriptURL, {
+        method: "POST",
+        body: JSON.stringify(formData),
+        headers: { "Content-Type": "application/json" }
+      });
+
+      const result = await response.json();
+
+      if (response.ok && result.status === "success") {
+        successMessage.classList.remove('hidden');
+        form.reset();
+        setTimeout(() => successMessage.classList.add('hidden'), 4000);
+      } else {
+        alert("Hubo un problema al enviar tu opinión. Intenta nuevamente.");
+      }
+    } catch (error) {
+      alert("⚠️ Error de conexión. Verifica tu red o el enlace del formulario.");
+      console.error(error);
+    }
+  });
+</script>
+<footer>
+    <p>© 2025 Mariana Montana | Desarrollado con 💙 tecnología, empatía y propósito.</p>
+  </footer>
+</body>
+</html>
